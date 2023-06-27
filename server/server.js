@@ -1,11 +1,16 @@
 const express = require("express");
+const routes = require("./routes/routes");
 const app = express();
 const port = 5000;
 
-app.get("/api", (req, res) => {
-  res.json({ users: ["one", "two", "three", "four", "five"] });
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello from the server!");
 });
 
+app.use("/api/data", routes);
+
 app.listen(port, () => {
-  console.log(`Server running on port http://www.localhost:${port}/api`);
+  console.log(`Server running on port http://www.localhost:${port}/api/data`);
 });
