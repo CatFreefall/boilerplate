@@ -4,7 +4,7 @@ function App() {
   const [serverData, setServerData] = useState([]);
 
   useEffect(() => {
-    fetch("/api")
+    fetch("/api/data")
       .then((res) => res.json())
       .then((data) => setServerData(data));
   }, []);
@@ -12,11 +12,21 @@ function App() {
   return (
     <div>
       Data:
-      {typeof serverData.users === "undefined" ? (
-        <p>Server data not loaded</p>
-      ) : (
-        serverData.users.map((user, index) => <p key={index}>{user}</p>)
-      )}
+      {serverData.map((data, index) => (
+        <p key={index}>
+          {data.id +
+            " " +
+            data.first_name +
+            " " +
+            data.last_name +
+            " " +
+            data.age +
+            " " +
+            data.birth_data +
+            " " +
+            data.team}
+        </p>
+      ))}
     </div>
   );
 }
