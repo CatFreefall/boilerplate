@@ -9,4 +9,6 @@ router.get("/names", controller.getNames);
 
 router.post("/", controller.addData);
 
+router.delete("/id=:id", controller.deleteData);
+
 module.exports = router;

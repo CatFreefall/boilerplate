@@ -51,9 +51,27 @@ const addData = (req, res) => {
   });
 };
 
+const deleteData = (req, res) => {
+  const id = parseInt(req.params.id);
+
+  pool.query(queries.getIDs, [id], (err, results) => {
+    if (results.rows.length === 0) {
+      res.status(404).send("Error. ID not found.");
+    } else {
+      pool.query(queries.deleteData, [id], (err, results) => {
+        if (err) {
+          throw err;
+        }
+        res.status(200).send("Data successfully deleted.");
+      });
+    }
+  });
+};
+
 module.exports = {
   getData,
   getIDs,
   getNames,
   addData,
+  deleteData,
 };
