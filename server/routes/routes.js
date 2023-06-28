@@ -11,4 +11,6 @@ router.post("/", controller.addData);
 
 router.delete("/id=:id", controller.deleteData);
 
+router.put("/id=:id", controller.updateData);
+
 module.exports = router;

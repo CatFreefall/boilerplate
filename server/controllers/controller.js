@@ -68,10 +68,38 @@ const deleteData = (req, res) => {
   });
 };
 
+const updateData = (req, res) => {
+  const id = parseInt(req.params.id);
+  pool.query(queries.getIDs, [id], (err, results) => {
+    if (results.rows.length === 0) {
+      res.status(404).send("Error. ID not found.");
+    } else {
+      const { first_name, last_name, age, birth_data, team } = req.body;
+      pool.query(queries.duplicateTeam, [team], (err, results) => {
+        if (results.rows.length > 0) {
+          res.status(409).send("Error. Team already exists");
+        } else {
+          pool.query(
+            queries.updateData,
+            [first_name, last_name, age, birth_data, team, id],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              res.status(200).send("Data successfully updated.");
+            }
+          );
+        }
+      });
+    }
+  });
+};
+
 module.exports = {
   getData,
   getIDs,
   getNames,
   addData,
   deleteData,
+  updateData,
 };
