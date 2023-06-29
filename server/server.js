@@ -5,10 +5,6 @@ const port = 5000;
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello from the server!");
-});
-
 app.use("/api/data", routes);
 
 app.listen(port, () => {
